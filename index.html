@@ -3,33 +3,50 @@
 <head>
 <meta charset="UTF-8">
 <title>Will you be my Valentine?</title>
+
 <style>
 body{
+  margin:0;
+  overflow:hidden;
+  height:100vh;
   display:flex;
   justify-content:center;
   align-items:center;
-  height:100vh;
-  font-family:Arial, sans-serif;
-  background:#ffe6ec;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg,#ffd1dc,#ffe6f0);
 }
 
-.box{
-  text-align:center;
+.card{
+  position:relative;
+  z-index:2;
   background:white;
-  padding:30px;
-  border-radius:12px;
+  padding:35px 45px;
+  border-radius:20px;
+  text-align:center;
+  box-shadow:0 10px 25px rgba(0,0,0,0.15);
+}
+
+h1{
+  color:#ff3f6c;
+  margin-bottom:10px;
+}
+
+.flowers{
+  font-size:28px;
+  margin-bottom:10px;
 }
 
 button{
-  padding:10px 20px;
-  font-size:16px;
+  padding:12px 26px;
+  font-size:18px;
   border:none;
-  border-radius:6px;
+  border-radius:30px;
   cursor:pointer;
+  margin:10px;
 }
 
 #yes{
-  background:#ff4d79;
+  background:#ff3f6c;
   color:white;
 }
 
@@ -38,18 +55,45 @@ button{
   background:#999;
   color:white;
 }
+
+/* hearts animation */
+
+.heart{
+  position:fixed;
+  bottom:-20px;
+  font-size:20px;
+  animation: floatUp linear forwards;
+  pointer-events:none;
+}
+
+@keyframes floatUp{
+  from{
+    transform:translateY(0);
+    opacity:1;
+  }
+  to{
+    transform:translateY(-110vh);
+    opacity:0;
+  }
+}
 </style>
 </head>
+
 <body>
 
-<div class="box">
-  <h2>Will you be my Valentine? ❤️</h2>
+<div class="card">
+  <div class="flowers">🌸 🌷 🌼 🌺</div>
+  <h1>Will you be my Valentine? 💖</h1>
+  <p>You make my days brighter ✨</p>
+
   <br>
-  <button id="yes" onclick="alert('Yay! 💖')">Yes</button>
-  <button id="no">No</button>
+
+  <button id="yes" onclick="yesClicked()">Yes 💕</button>
+  <button id="no">No 😶</button>
 </div>
 
 <script>
+/* No button bhagne wala effect */
 const noBtn = document.getElementById("no");
 
 noBtn.addEventListener("mouseover", () => {
@@ -59,6 +103,33 @@ noBtn.addEventListener("mouseover", () => {
   noBtn.style.left = x + "px";
   noBtn.style.top  = y + "px";
 });
+
+
+/* Yes click message */
+function yesClicked(){
+  alert("Yayyy! 💖 You just made my day! 🌸");
+}
+
+
+/* Flying hearts */
+function createHeart(){
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerHTML = "❤️";
+
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = (16 + Math.random()*18) + "px";
+  heart.style.animationDuration = (3 + Math.random()*2) + "s";
+
+  document.body.appendChild(heart);
+
+  setTimeout(()=>{
+    heart.remove();
+  },5000);
+}
+
+setInterval(createHeart, 300);
+
 </script>
 
 </body>
